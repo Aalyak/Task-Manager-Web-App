@@ -1,0 +1,9 @@
+# Root-level ignores
+.env
+.DS_Store
+.vscode/
+
+# Fallbacks for subfolders 
+**/node_modules/
+**/dist/
+**/.env
