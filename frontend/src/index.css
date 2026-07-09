@@ -649,13 +649,15 @@ a:hover { text-decoration: underline; }
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 0;
+  z-index: 5;          /* instead of 0 */
   opacity: 0;
   transition: opacity 0.3s ease;
-  background: radial-gradient(600px circle at var(--x) var(--y),
+  background: radial-gradient(
+    600px circle at var(--x) var(--y),
     rgba(var(--glow-a), 0.16),
     rgba(var(--glow-b), 0.05) 35%,
-    transparent 65%);
+    transparent 65%
+  );
 }
 
 [data-theme="dark"] .glow-field {

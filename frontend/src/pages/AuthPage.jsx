@@ -160,8 +160,8 @@ export default function AuthPage() {
 
         <p style={{ fontSize: "0.85rem", textAlign: "center", color: "var(--text-muted)" }}>
           {mode === "login" ? "Don't have an account? " : "Already have an account? "}
-          
-            href<a
+          <a
+            href="#"
             onClick={(e) => {
               e.preventDefault();
               setMode(mode === "login" ? "signup" : "login");
