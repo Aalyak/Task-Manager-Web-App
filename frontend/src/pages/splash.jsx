@@ -8,6 +8,7 @@ export default function Splash({ onFinish }) {
     const t2 = setTimeout(() => setStage("tagline"), 1600);
     const t3 = setTimeout(() => setStage("exit"), 3000);
     const t4 = setTimeout(() => onFinish(), 3600);
+
     return () => [t1, t2, t3, t4].forEach(clearTimeout);
   }, [onFinish]);
 
@@ -21,34 +22,89 @@ export default function Splash({ onFinish }) {
         alignItems: "center",
         justifyContent: "center",
         overflow: "hidden",
-        background: "linear-gradient(160deg, #0a0a12 0%, #14101f 50%, #0a0a12 100%)",
+        background:
+          "linear-gradient(160deg, #000000 0%, #120000 45%, #2b0000 100%)",
         transform: stage === "exit" ? "translateY(-100%)" : "translateY(0)",
         transition: "transform 0.6s cubic-bezier(0.65, 0, 0.35, 1)",
       }}
     >
-      {/* floating gradient blobs */}
+      {/* Floating Red Glow */}
       <div className="splash-blob splash-blob-1" />
       <div className="splash-blob splash-blob-2" />
       <div className="splash-blob splash-blob-3" />
 
-      <div style={{ position: "relative", textAlign: "center", padding: 20 }}>
+      <div
+        style={{
+          position: "relative",
+          textAlign: "center",
+          padding: 20,
+        }}
+      >
         {stage === "loading" && (
-          <div style={{ display: "flex", gap: 8, justifyContent: "center" }}>
-            <span className="splash-dot" style={{ animationDelay: "0s" }} />
-            <span className="splash-dot" style={{ animationDelay: "0.15s" }} />
-            <span className="splash-dot" style={{ animationDelay: "0.3s" }} />
+          <div
+            style={{
+              display: "flex",
+              gap: 8,
+              justifyContent: "center",
+            }}
+          >
+            <span
+              className="splash-dot"
+              style={{ animationDelay: "0s" }}
+            />
+            <span
+              className="splash-dot"
+              style={{ animationDelay: "0.15s" }}
+            />
+            <span
+              className="splash-dot"
+              style={{ animationDelay: "0.3s" }}
+            />
           </div>
         )}
 
-        {(stage === "heading" || stage === "tagline" || stage === "exit") && (
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
+        {(stage === "heading" ||
+          stage === "tagline" ||
+          stage === "exit") && (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 6,
+            }}
+          >
             <div className="splash-logo">
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="3" y="4" width="18" height="17" rx="3" stroke="currentColor" strokeWidth="1.8"/>
-                <path d="M8 2.5V6M16 2.5V6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
-                <path d="M7 11.5L10 14.5L17 8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="3"
+                  y="4"
+                  width="18"
+                  height="17"
+                  rx="3"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                />
+                <path
+                  d="M8 2.5V6M16 2.5V6"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M7 11.5L10 14.5L17 8"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </div>
+
             <h1 className="splash-heading">Task Manager</h1>
 
             {(stage === "tagline" || stage === "exit") && (
@@ -61,87 +117,135 @@ export default function Splash({ onFinish }) {
       </div>
 
       <style>{`
+        /* Loading Dots */
         .splash-dot {
           width: 10px;
           height: 10px;
           border-radius: 50%;
-          background: linear-gradient(135deg, #7c6cf6, #f5a3ff);
+          background: linear-gradient(135deg, #e50914, #ff4d4d);
           animation: splashPulse 1s ease-in-out infinite;
-        }
-        @keyframes splashPulse {
-          0%, 100% { transform: scale(0.6); opacity: 0.4; }
-          50% { transform: scale(1); opacity: 1; }
+          box-shadow: 0 0 12px rgba(229,9,20,0.7);
         }
 
+        @keyframes splashPulse {
+          0%,100% {
+            transform: scale(0.6);
+            opacity: 0.4;
+          }
+          50% {
+            transform: scale(1);
+            opacity: 1;
+          }
+        }
+
+        /* Logo */
         .splash-logo {
-          width: 56px;
-          height: 56px;
+          width: 60px;
+          height: 60px;
           border-radius: 16px;
           display: flex;
           align-items: center;
           justify-content: center;
-          background: linear-gradient(135deg, #7c6cf6, #f5a3ff);
-          color: #fff;
-          animation: splashPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-        }
-        .splash-logo svg { width: 30px; height: 30px; }
-        @keyframes splashPop {
-          0% { transform: scale(0.3); opacity: 0; }
-          100% { transform: scale(1); opacity: 1; }
+          background: linear-gradient(135deg,#b20710,#e50914);
+          color: white;
+          box-shadow:
+            0 0 20px rgba(229,9,20,.6),
+            0 0 45px rgba(229,9,20,.4);
+          animation: splashPop .6s cubic-bezier(.34,1.56,.64,1) both;
         }
 
-        .splash-heading {
-          font-size: 2rem;
-          font-weight: 800;
-          letter-spacing: -0.02em;
-          margin-top: 14px;
-          background: linear-gradient(135deg, #fff, #c9c3ff);
-          -webkit-background-clip: text;
-          background-clip: text;
-          color: transparent;
-          animation: splashFadeUp 0.6s ease both;
+        .splash-logo svg{
+          width:32px;
+          height:32px;
         }
 
-        .splash-tagline {
-          font-size: 0.95rem;
-          color: #a9a5c4;
-          max-width: 320px;
-          margin-top: 8px;
-          animation: splashFadeUp 0.6s ease both;
+        @keyframes splashPop{
+          0%{
+            transform:scale(.3);
+            opacity:0;
+          }
+          100%{
+            transform:scale(1);
+            opacity:1;
+          }
         }
 
-        @keyframes splashFadeUp {
-          0% { opacity: 0; transform: translateY(10px); }
-          100% { opacity: 1; transform: translateY(0); }
+        /* Heading */
+        .splash-heading{
+          margin-top:16px;
+          font-size:2.3rem;
+          font-weight:800;
+          letter-spacing:-1px;
+          background:linear-gradient(135deg,#ffffff,#ff5c5c);
+          -webkit-background-clip:text;
+          background-clip:text;
+          color:transparent;
+          animation:splashFadeUp .7s ease both;
         }
 
-        .splash-blob {
-          position: absolute;
-          border-radius: 50%;
-          filter: blur(60px);
-          opacity: 0.35;
-          animation: splashFloat 8s ease-in-out infinite;
+        /* Tagline */
+        .splash-tagline{
+          margin-top:10px;
+          max-width:360px;
+          font-size:1rem;
+          color:#d5d5d5;
+          line-height:1.6;
+          animation:splashFadeUp .8s ease both;
         }
-        .splash-blob-1 {
-          width: 320px; height: 320px;
-          background: #7c6cf6;
-          top: -80px; left: -60px;
+
+        @keyframes splashFadeUp{
+          from{
+            opacity:0;
+            transform:translateY(15px);
+          }
+          to{
+            opacity:1;
+            transform:translateY(0);
+          }
         }
-        .splash-blob-2 {
-          width: 260px; height: 260px;
-          background: #f5a3ff;
-          bottom: -60px; right: -40px;
-          animation-delay: 2s;
+
+        /* Floating Glow */
+        .splash-blob{
+          position:absolute;
+          border-radius:50%;
+          filter:blur(70px);
+          opacity:.35;
+          animation:splashFloat 9s ease-in-out infinite;
         }
-        .splash-blob-3 {
-          width: 200px; height: 200px;
-          background: #4dd0e1;
-          top: 40%; left: 60%;
-          animation-delay: 4s;
+
+        .splash-blob-1{
+          width:340px;
+          height:340px;
+          background:#e50914;
+          top:-90px;
+          left:-70px;
         }
-        @keyframes splashFloat {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          50% { transform: translate(30px, -30px) scale(1.1); }
+
+        .splash-blob-2{
+          width:280px;
+          height:280px;
+          background:#8b0000;
+          bottom:-80px;
+          right:-50px;
+          animation-delay:2s;
+        }
+
+        .splash-blob-3{
+          width:220px;
+          height:220px;
+          background:#ff3b3b;
+          top:45%;
+          left:60%;
+          animation-delay:4s;
+        }
+
+        @keyframes splashFloat{
+          0%,100%{
+            transform:translate(0,0) scale(1);
+          }
+          50%{
+            transform:translate(30px,-30px) scale(1.1);
+          }
         }
       `}</style>
     </div>
