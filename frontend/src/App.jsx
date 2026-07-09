@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import AuthPage from "./pages/AuthPage";
 import Dashboard from "./pages/Dashboard";
-import Splash from "./pages/Splash";
+import Splash from "./pages/splash";
 
 function PrivateRoute({ children }) {
   const { user, loading } = useAuth();
