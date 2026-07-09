@@ -665,3 +665,9 @@ a:hover { text-decoration: underline; }
 @media (prefers-reduced-motion: reduce) {
   .glow-field { display: none; }
 }
+
+@media (max-width: 768px) {
+  .glow-field {
+    display: none;
+  }
+}

@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import AuthPage from "./pages/AuthPage";
 import Dashboard from "./pages/Dashboard";
+import Splash from "./pages/Splash";
 
 function PrivateRoute({ children }) {
   const { user, loading } = useAuth();
@@ -63,6 +64,7 @@ function CursorGlow() {
 
 export default function App() {
   const [theme, setTheme] = useState(() => localStorage.getItem("theme") || "light");
+  const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -71,6 +73,10 @@ export default function App() {
 
   function toggleTheme() {
     setTheme((t) => (t === "light" ? "dark" : "light"));
+  }
+
+  if (showSplash) {
+    return <Splash onFinish={() => setShowSplash(false)} />;
   }
 
   return (

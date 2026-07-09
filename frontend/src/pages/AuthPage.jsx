@@ -1,17 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export default function AuthPage() {
-  const [mode, setMode] = useState("login"); // "login" | "signup"
+  const [mode, setMode] = useState("login");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const { login, signup } = useAuth();
   const navigate = useNavigate();
+
+  // Force dark theme on auth page, restore previous theme on leave
+  useEffect(() => {
+    const previousTheme = document.documentElement.getAttribute("data-theme");
+    document.documentElement.setAttribute("data-theme", "dark");
+    return () => {
+      document.documentElement.setAttribute("data-theme", previousTheme || "light");
+    };
+  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -97,14 +107,47 @@ export default function AuthPage() {
 
         <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
           <label style={{ fontSize: "0.85rem", fontWeight: 600 }}>Password</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="At least 6 characters"
-            required
-            minLength={6}
-          />
+          <div style={{ position: "relative" }}>
+            <input
+              type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="At least 6 characters"
+              required
+              minLength={6}
+              style={{ width: "100%", paddingRight: 40 }}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword((s) => !s)}
+              style={{
+                position: "absolute",
+                right: 10,
+                top: "50%",
+                transform: "translateY(-50%)",
+                background: "transparent",
+                border: "none",
+                cursor: "pointer",
+                color: "var(--text-muted)",
+                padding: 4,
+                display: "flex",
+              }}
+              tabIndex={-1}
+            >
+              {showPassword ? (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2 12S5.5 5 12 5s10 7 10 7-3.5 7-10 7S2 12 2 12Z" stroke="currentColor" strokeWidth="1.8"/>
+                  <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.8"/>
+                </svg>
+              ) : (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3 3L21 21" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+                  <path d="M10.6 6.2C11 6.1 11.5 6 12 6c6.5 0 10 7 10 7s-1 2-2.9 3.7M6.6 6.6C4 8.3 2 12 2 12s3.5 7 10 7c1.4 0 2.6-.3 3.7-.8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+                  <path d="M9.9 9.9a3 3 0 0 0 4.2 4.2" stroke="currentColor" strokeWidth="1.8"/>
+                </svg>
+              )}
+            </button>
+          </div>
         </div>
 
         {error && (
@@ -118,7 +161,7 @@ export default function AuthPage() {
         <p style={{ fontSize: "0.85rem", textAlign: "center", color: "var(--text-muted)" }}>
           {mode === "login" ? "Don't have an account? " : "Already have an account? "}
           
-            href=<a
+            href<a
             onClick={(e) => {
               e.preventDefault();
               setMode(mode === "login" ? "signup" : "login");
