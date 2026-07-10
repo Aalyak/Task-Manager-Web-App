@@ -2,6 +2,24 @@
 
 A full-stack task management app with kanban-style status tracking, drag-and-drop, AI-assisted task creation, and dark mode — built as a take-home project.
 ---
+## Live Links
+
+- **Live app:** https://task-manager-web-app-three.vercel.app/
+- **API (backend):** https://task-manager-web-app-n583.onrender.com
+- **GitHub:** https://github.com/Aalyak/Task-Manager-Web-App
+
+## Note on the Live Link
+
+This app is hosted on Vercel's free tier, which uses a shared `*.vercel.app` subdomain. 
+Chrome's Safe Browsing sometimes flags these shared subdomains as a false positive, 
+unrelated to this app's actual code. I've reported this to Google for review.
+
+If you see a warning when opening the live link, click **"Details" → "Visit this 
+unsafe site"** to proceed — the app is safe. Alternatively, you can run the project 
+locally using the setup steps above, or review the source code directly in this repo.
+
+Note: the backend is on Render's free tier, which spins down when idle — the first 
+request after inactivity can take 30–50 seconds to respond. This is expected behavior.
 
 ## Features
 
